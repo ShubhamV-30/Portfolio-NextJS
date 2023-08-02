@@ -1,10 +1,19 @@
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import "../styles/globals.css";
+import { useEffect } from "react";
 
 import { ThemeProvider } from "next-themes";
 
+
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .then((registration) => console.log("scope is: ", registration.scope));
+    }
+  }, []);
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
       <div className="grid grid-cols-12 gap-6 px-5 my-14 lg:mb-0 md:mb-16 sm:px-20 md:px-32 lg:px-36 xl:px-48 ">
